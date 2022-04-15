@@ -1,17 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+/* eslint-disable no-unused-vars */
+import React from "react"
+import ReactDOM from "react-dom"
+import AppRouter from "./routers/AppRouter"
+import "./index.css"
+import configureStore from "./store/configureStore"
+import { addExpense } from "./actions/expenses"
+import { setTextFilter } from "./actions/filters"
+import getVisibleExpenses from "./selectors/expenses"
+import Info from "./Playground/hoc"
+import { Provider } from "react-redux"
+
+// import Redux from "redux"
+// import App from "./App"
+
+const store = configureStore
+
+store.dispatch(addExpense({ description: "water bill" }))
+store.dispatch(addExpense({ description: "Gas bill" }))
+
+store.dispatch(setTextFilter("water"))
+
+const state = store.getState()
+const visibleExpenses = getVisibleExpenses(state.expenses, state.filters)
+console.log(visibleExpenses)
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>,
+  document.getElementById("root")
+)
