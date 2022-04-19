@@ -1,14 +1,14 @@
 import React from "react"
-// import moment from "moment"
-// import { SingleDatePicker } from "react-dates"
-// import "react-dates/lib/css/_datepicker.css"
+import moment from "moment"
+import { SingleDatePicker } from "react-dates"
+import "react-dates/lib/css/_datepicker.css"
 
 export default class ExpenseForm extends React.Component {
   state = {
     description: "",
     note: "",
     amount: "",
-    // createdAt: moment(),
+    createdAt: moment(),
     calenderFocused: false,
     error: "",
   }
@@ -69,7 +69,7 @@ export default class ExpenseForm extends React.Component {
             onChange={this.onDescriptionChange}
           />
           <input type="number" placeholder="Amount" />
-
+          <SingleDatePicker />
           <textarea
             placeholder="Add a note for your expense(optional)"
             onChange={this.onNoteChange}
